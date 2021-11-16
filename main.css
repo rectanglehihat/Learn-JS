@@ -1,0 +1,11 @@
+.yellow-bg {
+  background: yellow;
+}
+
+.alert-box {
+  background: salmon;
+  color: rgb(233, 233, 233);
+  padding: 20px;
+  border-radius: 5px;
+  display: none;
+}
