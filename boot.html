@@ -26,11 +26,12 @@
 
     <title>Hello, world!</title>
   </head>
+
   <body>
     <div class="left-menu">
       <p>Menu Title</p>
     </div>
-
+    <!-- modal -->
     <div class="black-background">
       <div class="white-background">
         <p>로그인하세요</p>
@@ -118,6 +119,65 @@
     <button class="slide-3">3</button>
 
     <div class="my-5"></div>
+
+    <style>
+      ul.list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid #ccc;
+      }
+      ul.list::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .tab-button {
+        display: block;
+        padding: 10px 20px 10px 20px;
+        float: left;
+        margin-right: -1px;
+        margin-bottom: -1px;
+        color: grey;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .active {
+        border-top: 2px solid orange;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid white;
+        border-left: 1px solid #ccc;
+        color: black;
+        margin-top: -2px;
+      }
+      .tab-content {
+        display: none;
+        padding: 10px;
+      }
+      .show {
+        display: block;
+      }
+    </style>
+
+    <div class="container mt-5">
+      <ul class="list">
+        <li class="tab-button" data-id="0">Products</li>
+        <li class="tab-button" data-id="1">Information</li>
+        <li class="tab-button" data-id="2">Shipping</li>
+      </ul>
+
+      <div class="tab-content">
+        <p>상품설명입니다. Product</p>
+      </div>
+      <div class="tab-content">
+        <p>상품정보입니다. Info</p>
+      </div>
+      <div class="tab-content">
+        <p>배송정보입니다. Shipping</p>
+      </div>
+    </div>
+
+    <script src="tab.js"></script>
 
     <!-- <input id="test-input" /> -->
 
@@ -233,9 +293,16 @@
         if ($(window).scrollTop() > 50) {
           $(".nav-menu").addClass("nav-white");
           $(".nav-menu h4").addClass("small-logo");
-        } else ($(window).scrollTop() === 0) {
+        } else if ($(window).scrollTop() === 0) {
           $(".nav-menu").removeClass("nav-white");
           $(".nav-menu h4").removeClass("small-logo");
+        }
+      });
+
+      // 배경 클릭시 modal 닫힘
+      $(".black-background").click(function (e) {
+        if (e.target === e.currentTarget) {
+          $(".black-background").hide();
         }
       });
     </script>
