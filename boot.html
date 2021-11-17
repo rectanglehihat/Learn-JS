@@ -27,6 +27,10 @@
     <title>Hello, world!</title>
   </head>
   <body>
+    <div class="left-menu">
+      <p>Menu Title</p>
+    </div>
+
     <div class="black-background">
       <div class="white-background">
         <p>로그인하세요</p>
@@ -46,6 +50,7 @@
               type="password"
               class="form-control"
               placeholder="Password"
+              id="pw"
             />
             <p class="password-check">비민번호가 정확하지 않습니다.</p>
           </div>
@@ -78,8 +83,41 @@
         It uses utility classes for typography and spacing to space content out
         within the larger container.
       </p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Login</a>
+      <a class="btn btn-primary btn-lg" href="#" role="button" id="login"
+        >Login</a
+      >
+      <a class="btn btn-danger btn-lg" href="#" role="button" id="show-menu"
+        >Show Menu</a
+      >
     </div>
+
+    <h4 class="'m-5 text-center">Showcase</h4>
+
+    <div class="carousel">
+      <div style="overflow: hidden; position: relative">
+        <!-- image -->
+        <div class="slide-container">
+          <div class="slide-box">
+            <img src="img/NY1.jpg" alt="newyork1" />
+          </div>
+          <div class="slide-box">
+            <img src="img/NY2.jpg" alt="newyork2" />
+          </div>
+          <div class="slide-box">
+            <img src="img/NY3.jpg" alt="newyork3" />
+          </div>
+        </div>
+        <!-- carousel button -->
+        <button class="slide-next">></button>
+        <button class="slide-prev"><</button>
+      </div>
+    </div>
+
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+
+    <div class="my-5"></div>
 
     <!-- <input id="test-input" /> -->
 
@@ -91,9 +129,9 @@
       }
 
       // Login 버튼 클릭시 모달창 오픈
-      $(".btn").on("click", function () {
-        $(".black-background").fadeIn();
-      });
+      // $("#login").on("click", function () {
+      //   $(".black-background").fadeIn();
+      // });
       // close 버튼 클릭시 모달창 닫기
       $(".btn-danger").click(function () {
         $(".black-background").fadeOut();
@@ -112,9 +150,81 @@
 
       // 이메일 input 빈칸 검사 기능
       $("form").on("submit", function (e) {
-        if ($(".form-control").val() === "") {
+        const emailValue = $("#email").val();
+        const emailCheck =
+          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        if (emailCheck.test(emailValue) === false) {
           e.preventDefault();
-          $(".email-check, .password-check").show();
+          $(".email-check").show();
+        } else if (emailValue === "") {
+          e.preventDefault();
+        }
+
+        // if ($(".form-control").val() === "") {
+        //   e.preventDefault();
+        //   $(".email-check, .password-check").show();
+        // }
+      });
+
+      // pw란에 대문자 있는지 검사
+      $("form").on("submit", function (e) {
+        const pwValue = $("#pw").val();
+        const pwCheck = /^[A-Z]+/;
+
+        if (pwCheck.test(pwValue) === false) {
+          e.preventDefault();
+          $(".password-check").show();
+        }
+      });
+
+      // show menu 버튼 클릭시 왼쪽에서 스르륵 메뉴 보여주기
+      $("#show-menu").click(function () {
+        $(".left-menu").animate({ marginLeft: "0" }, 1000);
+      });
+
+      // Login 버튼 클릭시 모달창이 위에서 밑으로 내리기
+      $("#login").click(function () {
+        $(".black-background").show().animate({ marginTop: "0" });
+      });
+
+      // transition
+      $("#login").click(function () {
+        $(".black-background").css("transform", "translateY(0)");
+      });
+
+      // carousel button
+      $(".slide-2").click(function () {
+        $(".slide-container").css("transform", "translateX(-100vw)");
+      });
+
+      $(".slide-3").click(function () {
+        $(".slide-container").css("transform", "translateX(-200vw)");
+      });
+
+      $(".slide-1").click(function () {
+        $(".slide-container").css("transform", "translateX(0)");
+      });
+
+      // carousel next button
+      let nowPic = 1;
+      $(".slide-next").click(function () {
+        if (nowPic < 3) {
+          $(".slide-container").css(
+            "transform",
+            "translateX(-" + nowPic + "00vw)"
+          );
+          nowPic = nowPic + 1;
+        }
+      });
+
+      $(".slide-prev").click(function () {
+        if (nowPic > 1) {
+          $(".slide-container").css(
+            "transform",
+            "translateX(-" + (nowPic - 2) + "00vw)"
+          );
+          nowPic = nowPic - 1;
         }
       });
     </script>
