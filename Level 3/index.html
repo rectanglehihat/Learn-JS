@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="index.css" rel="stylesheet" />
+
+    <title>Hello, world!</title>
+  </head>
+
+  <body>
+    <div class="left-menu">
+      <p>Menu Title</p>
+    </div>
+    <!-- modal -->
+    <div class="black-background">
+      <div class="white-background">
+        <p>로그인하세요</p>
+
+        <form action="login.php">
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              id="email"
+            />
+            <p class="email-check">이메일이 정확하지 않습니다.</p>
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              id="pw"
+            />
+            <p class="password-check">비민번호가 정확하지 않습니다.</p>
+          </div>
+          <button type="submit" class="btn btn-primary">send</button>
+          <button type="button" class="btn btn-danger">close</button>
+        </form>
+      </div>
+    </div>
+    <!-- nav -->
+    <div class="nav-menu">
+      <h4 class="large-logo">Studio J</h4>
+      <a id="nav-sub-btn">Products</a>
+    </div>
+
+    <ul class="list-group nav-sub">
+      <li class="list-group-item">Hihat</li>
+      <li class="list-group-item">Snare</li>
+      <li class="list-group-item">Kick</li>
+      <li class="list-group-item">Ride</li>
+    </ul>
+
+    <div class="jumbotron main-background">
+      <h1 class="display-4">Studio J</h1>
+      <p class="lead">
+        This is a simple hero unit, a simple jumbotron-style component for
+        calling extra attention to featured content or information.
+      </p>
+      <hr class="my-4" />
+      <p>
+        It uses utility classes for typography and spacing to space content out
+        within the larger container.
+      </p>
+      <a class="btn btn-primary btn-lg" href="#" role="button" id="login"
+        >Login</a
+      >
+      <a class="btn btn-danger btn-lg" href="#" role="button" id="show-menu"
+        >Show Menu</a
+      >
+    </div>
+
+    <h4 class="'m-5 text-center">Showcase</h4>
+
+    <div class="carousel">
+      <div style="overflow: hidden; position: relative">
+        <!-- image -->
+        <div class="slide-container">
+          <div class="slide-box">
+            <img src="img/NY1.jpg" alt="newyork1" />
+          </div>
+          <div class="slide-box">
+            <img src="img/NY2.jpg" alt="newyork2" />
+          </div>
+          <div class="slide-box">
+            <img src="img/NY3.jpg" alt="newyork3" />
+          </div>
+        </div>
+        <!-- carousel button -->
+        <button class="slide-next">></button>
+        <button class="slide-prev"><</button>
+      </div>
+    </div>
+
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+
+    <div class="my-5"></div>
+
+    <style>
+      ul.list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-bottom: 1px solid #ccc;
+      }
+      ul.list::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .tab-button {
+        display: block;
+        padding: 10px 20px 10px 20px;
+        float: left;
+        margin-right: -1px;
+        margin-bottom: -1px;
+        color: grey;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .active {
+        border-top: 2px solid orange;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid white;
+        border-left: 1px solid #ccc;
+        color: black;
+        margin-top: -2px;
+      }
+      .tab-content {
+        display: none;
+        padding: 10px;
+      }
+      .show {
+        display: block;
+      }
+    </style>
+
+    <div class="container mt-5">
+      <ul class="list">
+        <li class="tab-button" data-id="0">Products</li>
+        <li class="tab-button" data-id="1">Information</li>
+        <li class="tab-button" data-id="2">Shipping</li>
+      </ul>
+
+      <div class="tab-content">
+        <p>상품설명입니다. Product</p>
+      </div>
+      <div class="tab-content">
+        <p>상품정보입니다. Info</p>
+      </div>
+      <div class="tab-content">
+        <p>배송정보입니다. Shipping</p>
+      </div>
+    </div>
+
+    <h4 id="product-title">상품제목</h4>
+    <p id="product-desc">상품내용</p>
+    <div style="margin-bottom: 500px"></div>
+    <!-- =========================script========================== -->
+    <script>
+      let arr = ["winter", 520];
+      let obj = { brand: "nike", model: 520 };
+      let data = [{ brand: "adidas" }, { model: 420 }];
+
+      // document.getElementById("product-title").innerHTML = arr[0];
+      $("#product-title").text(arr[0]);
+      // $("#product-desc").text(obj.model);
+      $("#product-desc").text(data[1].model);
+    </script>
+
+    <script src="tab.js"></script>
+
+    <!-- <input id="test-input" /> -->
+
+    <script>
+      if (3 < 1) {
+        console.log("hi");
+      } else {
+        console.log("welcome");
+      }
+
+      // Login 버튼 클릭시 모달창 오픈
+      // $("#login").on("click", function () {
+      //   $(".black-background").fadeIn();
+      // });
+      // close 버튼 클릭시 모달창 닫기
+      $(".btn-danger").click(function () {
+        $(".black-background").fadeOut();
+      });
+      // Products 클릭시 하위메뉴 토글
+      $("#nav-sub-btn").click(function () {
+        $(".nav-sub").slideToggle();
+      });
+
+      // Login 버튼 클릭시 <input>에 입력된 값이 'hi' 일때만 모달창 오픈
+      // $(".btn").on("click", function () {
+      //   if ($("#test-input").val() === "hi") {
+      //     $(".black-background").fadeIn();
+      //   }
+      // });
+
+      // 이메일 input 빈칸 검사 기능
+      $("form").on("submit", function (e) {
+        const emailValue = $("#email").val();
+        const emailCheck =
+          /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+        if (emailCheck.test(emailValue) === false) {
+          e.preventDefault();
+          $(".email-check").show();
+        } else if (emailValue === "") {
+          e.preventDefault();
+        }
+
+        // if ($(".form-control").val() === "") {
+        //   e.preventDefault();
+        //   $(".email-check, .password-check").show();
+        // }
+      });
+
+      // pw란에 대문자 있는지 검사
+      $("form").on("submit", function (e) {
+        const pwValue = $("#pw").val();
+        const pwCheck = /^[A-Z]+/;
+
+        if (pwCheck.test(pwValue) === false) {
+          e.preventDefault();
+          $(".password-check").show();
+        }
+      });
+
+      // show menu 버튼 클릭시 왼쪽에서 스르륵 메뉴 보여주기
+      $("#show-menu").click(function () {
+        $(".left-menu").animate({ marginLeft: "0" }, 1000);
+      });
+
+      // Login 버튼 클릭시 모달창이 위에서 밑으로 내리기
+      $("#login").click(function () {
+        $(".black-background").show().animate({ marginTop: "0" });
+      });
+
+      // transition
+      $("#login").click(function () {
+        $(".black-background").css("transform", "translateY(0)");
+      });
+
+      // carousel button
+      $(".slide-2").click(function () {
+        $(".slide-container").css("transform", "translateX(-100vw)");
+      });
+
+      $(".slide-3").click(function () {
+        $(".slide-container").css("transform", "translateX(-200vw)");
+      });
+
+      $(".slide-1").click(function () {
+        $(".slide-container").css("transform", "translateX(0)");
+      });
+
+      // carousel next button
+      let nowPic = 1;
+      $(".slide-next").click(function () {
+        if (nowPic < 3) {
+          $(".slide-container").css(
+            "transform",
+            "translateX(-" + nowPic + "00vw)"
+          );
+          nowPic = nowPic + 1;
+        }
+      });
+      // carousel prev button
+      $(".slide-prev").click(function () {
+        if (nowPic > 1) {
+          $(".slide-container").css(
+            "transform",
+            "translateX(-" + (nowPic - 2) + "00vw)"
+          );
+          nowPic = nowPic - 1;
+        }
+      });
+
+      // 스크롤 움직이면 nav-bar 변화
+      $(window).scroll(function () {
+        if ($(window).scrollTop() > 50) {
+          $(".nav-menu").addClass("nav-white");
+          $(".nav-menu h4").addClass("small-logo");
+        } else if ($(window).scrollTop() === 0) {
+          $(".nav-menu").removeClass("nav-white");
+          $(".nav-menu h4").removeClass("small-logo");
+        }
+      });
+
+      // 배경 클릭시 modal 닫힘
+      $(".black-background").click(function (e) {
+        if (e.target === e.currentTarget) {
+          $(".black-background").hide();
+        }
+      });
+    </script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
