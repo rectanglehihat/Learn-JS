@@ -42,6 +42,21 @@
         </div>
       </div>
     </form>
+
+    <!-- 상품카드 -->
+    <h4 class="hello">임시글씨</h4>
+    <div class="card" style="width: 18rem">
+      <img class="card-img-top" src="..." alt="Card image cap" />
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+    <button class="btn btn-danger" id="changeBtn">상품보여주기</button>
     <!-- script -->
     <script>
       // // js로 html 만들어 넣는 방법
@@ -78,6 +93,49 @@
             $("#option2").append(pants);
           });
         }
+      });
+
+      // ajax
+      $.ajax({
+        url: "https://codingapple1.github.io/data.json",
+        type: "get",
+      }).done(function (data) {
+        console.log(data);
+      });
+
+      // 버튼 클릭시 서버의 글로 바꾸기
+      // $("#changeBtn").click(function () {
+      //   $.ajax({
+      //     url: "https://codingapple1.github.io/hello.txt",
+      //     type: "get",
+      //   })
+      //     .done(function (data) {
+      //       $(".hello").html(data);
+      //     })
+      //     .fail(function () {
+      //       // 요청 실패시 실행할 코드
+      //     })
+      //     .always(function () {
+      //       // 항상 실행할 코드
+      //     });
+      // });
+      // 버튼 클릭시 상품 정보 가져오기
+      $("#changeBtn").click(function () {
+        $.ajax({
+          url: "https://codingapple1.github.io/data.json",
+          type: "get",
+        })
+          .done(function (data) {
+            $(".card-title").html(data.brand);
+            $(".card-text").html(data.model);
+            $(".card-img-top").attr("src", data.img);
+          })
+          .fail(function () {
+            // 요청 실패시 실행할 코드
+          })
+          .always(function () {
+            // 항상 실행할 코드
+          });
       });
     </script>
     <!-- Optional JavaScript; choose one of the two! -->
