@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div>
+      <button class="btn">버튼</button>
+      <h1 class="text">애니메이션</h1>
+    </div>
+
+    <script>
+      // 한글자씩 출현하는 Typewriting 애니메이션 만들기
+      const tag = document.querySelector("h1");
+      const originText = document.querySelector("h1").innerHTML;
+      // 1. 버튼을 클릭하면
+      $(".btn").click(function () {
+        // 2. 기존 내용 지우고
+        $(".text").html("");
+        // 3. 0.5초 후에 h1 태그에 텍스트 더하기(반복)
+        for (let i = 0; i < originText.length; i++) {
+          setTimeout(function () {
+            tag.innerHTML = tag.innerHTML + originText[i];
+          }, 500 * i);
+        }
+      });
+    </script>
+  </body>
+</html>
