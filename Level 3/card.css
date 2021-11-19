@@ -1,0 +1,19 @@
+.card-background {
+  height: 3000px;
+  margin: 800px 0 1600px 0;
+  background-color: black;
+}
+
+.card-box img {
+  /* 이미지 가운데정렬 */
+  display: block;
+  margin: auto;
+  max-width: 80%;
+}
+
+.card-box {
+  position: sticky;
+  top: 400px;
+  margin-top: 200px;
+  transition: transform 0.2s;
+}
