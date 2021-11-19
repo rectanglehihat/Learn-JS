@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="card.css"
+  </head>
+  <body>
+    <div class="card-background">
+      <div class="card-box">
+        <img src="img/card1.png" />
+      </div>
+      <div class="card-box">
+        <img src="img/card2.png" />
+      </div>
+      <div class="card-box">
+        <img src="img/card3.png" />
+      </div>
+    </div>
+
+    <script>
+      // 뷰포트가 스크롤 될떄마다 함수 실행
+      $(window).scroll(function () {
+        const scrollHeight = $(window).scrollTop();
+        console.log(scrollHeight);
+        // scrollHeight가 커질수록 oapcity값(opacityChange)이 작아짐
+        // 1. 고정값을 변수(opacityChange)로 바꾸고
+        // 2. 변수를 1차 함수로 계산해서 넣기
+        let opacityChange = (-1 / 500) * scrollHeight + 115 / 50;
+        $(".card-box").eq(0).css("opacity", opacityChange);
+
+        if (scrollHeight > 800) {
+          let scaleChange = (-1 / 5000) * scrollHeight + 565 / 500;
+          $(".card-box").eq(0).css("transform", `scale(${scaleChange})`);
+        }
+      });
+    </script>
+  </body>
+</html>
