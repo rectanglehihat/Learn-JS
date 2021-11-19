@@ -85,10 +85,13 @@
 
 .slide-container {
   width: 300vw;
-  transition: transform 1s;
   /* transform: translateX(-100vw); */
   display: flex;
   justify-content: space-between;
+}
+/* 내가 원할때만 transition 부여하려고 나눔 */
+.transforming {
+  transition: transform 0.5s;
 }
 
 .slide-box {
