@@ -1,4 +1,5 @@
-/* nav */
+// <!------------ Nav ------------>
+// logo
 .nav {
   background: darkolivegreen;
   color: var(--bs-gray-200);
@@ -6,24 +7,60 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  .logo h4 {
+    margin: 0;
+  }
 }
 
-.logo {
-  display: flex;
+.hometext {
+  padding: 0 0 0 0.3rem;
 }
-
-.logo h4 {
-  margin: 0;
-}
-
+// menu
 .menu {
   list-style: none;
   display: flex;
   margin: 0;
+  padding: 0;
+  li {
+    padding: 0 1rem;
+  }
+}
+// login & signup button
+.buttons {
+  button {
+    background: var(--bs-gray-200);
+    border: none;
+    color: var(--bs-gray-900);
+    border-radius: 0.5rem;
+  }
+}
+// <!------------ Search Input ------------>
+.searchInput {
+  padding: 2rem;
+  margin: 0;
 }
 
-button {
-  background: none;
-  border: none;
+// <!------------ Product List ------------>
+.box-container {
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card {
+  margin: 1rem 1rem 1rem 0;
+}
+
+// <!------------ Cart ------------>
+.drag-box {
+  background: var(--bs-gray-900);
   color: var(--bs-gray-200);
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

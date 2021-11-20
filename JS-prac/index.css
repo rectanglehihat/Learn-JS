@@ -1,4 +1,3 @@
-/* nav */
 .nav {
   background: darkolivegreen;
   color: var(--bs-gray-200);
@@ -14,14 +13,21 @@
   padding: 0.5rem 1rem;
 }
 
-.logo {
+.nav .logo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.logo h4 {
+.nav .logo h4 {
   margin: 0;
+}
+
+.hometext {
+  padding: 0 0 0 0.3rem;
 }
 
 .menu {
@@ -30,11 +36,51 @@
   display: -ms-flexbox;
   display: flex;
   margin: 0;
+  padding: 0;
 }
 
-button {
-  background: none;
+.menu li {
+  padding: 0 1rem;
+}
+
+.buttons button {
+  background: var(--bs-gray-200);
   border: none;
+  color: var(--bs-gray-900);
+  border-radius: 0.5rem;
+}
+
+.searchInput {
+  padding: 2rem;
+  margin: 0;
+}
+
+.box-container {
+  padding: 0 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.card {
+  margin: 1rem 1rem 1rem 0;
+}
+
+.drag-box {
+  background: var(--bs-gray-900);
   color: var(--bs-gray-200);
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=index.css.map */

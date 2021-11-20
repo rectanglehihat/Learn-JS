@@ -36,7 +36,7 @@
     <div class="nav">
       <!-- logo -->
       <div class="logo">
-        <i class="fas fa-home"></i>
+        <i class="fas fa-home fa-2x"></i>
         <h4 class="hometext">내집꾸미기</h4>
       </div>
       <!-- menu -->
@@ -55,7 +55,7 @@
     </div>
 
     <!------------ Search Input ------------>
-    <div class="mb-3">
+    <div class="mb-3 searchInput">
       <input
         type="text"
         class="form-control"
@@ -64,60 +64,79 @@
       />
     </div>
 
-    <!------------ Product List ------------>
-    <h1 class="product-list">모든 상품 리스트</h1>
-    <div class="card-group">
-      <div class="card">
-        <img src="img/pr1.JPG" class="card-img-top" alt="식기세척기" />
-        <div class="card-body">
-          <h5 class="card-title">식기세척기</h5>
-          <p class="card-text">세척나라</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">100000</small>
+    <div class="box-container">
+      <!------------ Product List ------------>
+      <div class="products-box">
+        <h1 class="product-list">모든 상품 리스트</h1>
+        <div class="card-group">
+          <!-- 상품 하나씩 들어감(ajax) -->
         </div>
       </div>
-      <div class="card">
-        <img src="img/pr2.JPG" class="card-img-top" alt="원목침대프레임" />
-        <div class="card-body">
-          <h5 class="card-title">원목 침대 프레임</h5>
-          <p class="card-text">침대나라</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">200000</small>
-        </div>
-      </div>
-      <div class="card">
-        <img src="img/pr3.JPG" class="card-img-top" alt="천연디퓨저" />
-        <div class="card-body">
-          <h5 class="card-title">천연 디퓨저 세트</h5>
-          <p class="card-text">향기나라</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">300000</small>
-        </div>
-      </div>
-      <div class="card">
-        <img src="img/pr4.JPG" class="card-img-top" alt="서큘레이터" />
-        <div class="card-body">
-          <h5 class="card-title">시원한 서큘레이터</h5>
-          <p class="card-text">바람나라</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">400000</small>
+
+      <!------------ Cart ------------>
+      <div class="cart-box">
+        <h1 class="cart">장바구니</h1>
+        <div class="card" style="width: 18rem">
+          <div class="drag-box">이곳에 상품을 놓아주세요.</div>
+          <div class="card-body">
+            <p class="card-text">총 합계 0원</p>
+            <a href="#" class="btn btn-primary">구매하기</a>
+          </div>
         </div>
       </div>
     </div>
 
-    <!------------ Cart ------------>
-    <h1 class="cart">장바구니</h1>
-    <div class="card" style="width: 18rem">
-      <div class="drag-box">이곳에 상품을 놓아주세요.</div>
-      <div class="card-body">
-        <p class="card-text">총 합계 0원</p>
-        <a href="#" class="btn btn-primary">구매하기</a>
-      </div>
-    </div>
+    <script>
+      // 사이트 첫 접속시 데이터에 맞게 상품 보여주기
+      $(function () {
+        $.ajax({
+          url: "store.json",
+          type: "get",
+        }).done(function (data) {
+          const productData = data.products;
+          // console.log(productData);
+          // 식기세척기 이미지, 타이틀, 설명, 가격 넣기
+          // function makeCard(i) {
+          // $(".card-img-top").attr("src", productData[i].photo);
+          //   $(".card-title").html(productData[i].product_name);
+          //   $(".card-text").html(productData[i].brand_name);
+          //   $(".text-muted").html(productData[i].price);
+          // }
+          productData.forEach(function (i) {
+            const template = `
+              <div class="col">
+                <div class="card h-100">
+                  <img src=${i.photo} class="card-img-top" alt=${i.product_name}>
+                  <div class="card-body">
+                    <h5 class="card-title">${i.product_name}</h5>
+                    <p class="card-text">${i.brand_name}</p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">${i.price}</small>
+                  </div>
+                </div>
+              </div>`;
+            $(".card-group").append(template);
+          });
+        });
+      });
+
+      // 삼품검색
+      // 1. input창에 '식'이 있으면 카드 1 보여줘
+      $(".form-control").change(function (e) {
+        $.ajax({
+          url: "store.json",
+          type: "get",
+        }).done(function (data) {
+          const productData = data.products;
+        });
+        if (e.target.value === "productData.product_name") {
+          // 해당 상품만 보여주셈
+        } else {
+          alert("찾으시는 제품이 없습니다.");
+        }
+      });
+    </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script
