@@ -67,9 +67,14 @@
 
 .card {
   margin: 1rem 1rem 1rem 0;
+  z-index: 2;
 }
 
-.drag-box {
+.cart-box {
+  z-index: 1;
+}
+
+.drop-box {
   background: var(--bs-gray-900);
   color: var(--bs-gray-200);
   height: 150px;
@@ -82,5 +87,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.cart-item {
+  display: none;
 }
 /*# sourceMappingURL=index.css.map */

@@ -53,14 +53,23 @@
 
 .card {
   margin: 1rem 1rem 1rem 0;
+  z-index: 2;
 }
 
 // <!------------ Cart ------------>
-.drag-box {
+.cart-box {
+  z-index: 1;
+}
+
+.drop-box {
   background: var(--bs-gray-900);
   color: var(--bs-gray-200);
   height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.cart-item {
+  display: none;
 }
