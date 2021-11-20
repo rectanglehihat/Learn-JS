@@ -1,0 +1,29 @@
+/* nav */
+.nav {
+  background: darkolivegreen;
+  color: var(--bs-gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.logo {
+  display: flex;
+}
+
+.logo h4 {
+  margin: 0;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--bs-gray-200);
+}
