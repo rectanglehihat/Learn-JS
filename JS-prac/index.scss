@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
   .logo {
     display: flex;
     align-items: center;
@@ -20,6 +20,11 @@
   padding: 0 0 0 0.3rem;
 }
 // menu
+.menu-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .menu {
   list-style: none;
   display: flex;

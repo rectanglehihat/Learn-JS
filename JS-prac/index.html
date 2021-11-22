@@ -47,17 +47,19 @@
         <h4 class="hometext">내집꾸미기</h4>
       </div>
       <!-- menu -->
-      <ul class="menu">
-        <li>홈</li>
-        <li>온라인 집들이</li>
-        <li>스토어</li>
-        <li>전문가</li>
-        <li>시공 견적</li>
-      </ul>
-      <!-- login & signup button -->
-      <div class="buttons">
-        <button class="login">로그인</button>
-        <button class="signup">회원가입</button>
+      <div class="menu-wrapper">
+        <ul class="menu">
+          <li>홈</li>
+          <li>온라인 집들이</li>
+          <li>스토어</li>
+          <li>전문가</li>
+          <li>시공 견적</li>
+        </ul>
+        <!-- login & signup button -->
+        <div class="buttons">
+          <button class="login">로그인</button>
+          <button class="signup">회원가입</button>
+        </div>
       </div>
     </div>
 
@@ -75,20 +77,7 @@
       <!------------ Product List ------------>
       <div class="products-box">
         <h1 class="product-list">모든 상품 리스트</h1>
-        <div class="card-group">
-          <div class="col" id="drag-card">
-            <div class="card h-100">
-              <img src="" class="card-img-top" alt="product_name" />
-              <div class="card-body">
-                <h5 class="card-title">product name</h5>
-                <p class="card-text" id="card-text">brand name</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">price</small>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="card-group"></div>
       </div>
 
       <!------------ Cart ------------>
@@ -110,70 +99,76 @@
     </div>
 
     <script>
-      // 상품 만들기
-      function makeCard(product) {
-        for (let i = 0; i < product.length; i++) {
-          $(".card-img-top").attr("src", product[i].photo);
-          $(".card-title").html(product[i].product_name);
-          $("#card-text").html(product[i].brand_name);
-          $(".text-muted").html(product[i].price);
-        }
-      }
-
-      // 사이트 첫 접속시 데이터에 맞게 상품 보여주기
+      // 사이트 첫 접속시 데이터에 맞게 상품 보여주기(데이터바인딩)
       $(function () {
         $.ajax({
           url: "store.json",
           type: "get",
         }).done(function (data) {
           const productData = data.products;
-          makeCard(productData);
-          // productData.forEach(function (i) {
-          //   const template = `
-          //     <div class="col" id="draggable">
-          //       <div class="card h-100">
-          //         <img src=${i.photo} class="card-img-top" alt=${i.product_name}>
-          //         <div class="card-body">
-          //           <h5 class="card-title">${i.product_name}</h5>
-          //           <p class="card-text">${i.brand_name}</p>
-          //         </div>
-          //         <div class="card-footer">
-          //           <small class="text-muted">${i.price}</small>
-          //         </div>
-          //       </div>
-          //     </div>`;
-          //   $(".card-group").append(template);
-          // });
+          productData.forEach(function (i) {
+            makeItem(i);
+          });
         });
       });
+
+      // 상품 만들고 드래그 가능하게 만들기
+      function makeItem(item, index) {
+        const itemTemplate = $(`
+                  <div class="col" id="draggable" data-index=${index}>
+                    <div class="card h-100">
+                      <img src=img/${item.photo} class="card-img-top" alt=${item.product_name}>
+                      <div class="card-body">
+                        <h5 class="product-name">${item.product_name}</h5>
+                        <p class="brand-namet">${item.brand_name}</p>
+                      </div>
+                      <div class="card-footer">
+                        <small class="text-muted">${item.price}</small>
+                      </div>
+                    </div>
+                  </div>`).draggable({
+          zIndex: 999,
+          revert: "invalid",
+        });
+        $(".card-group").append(itemTemplate);
+      }
 
       // 삼품검색
-      // 1. input창이 변하면
-      $(".form-control").change(function (e) {
-        // 2. 데이터 가져와서
-        $.ajax({
-          url: "store.json",
-          type: "get",
-        }).done(function (data) {
-          const productName = data.products.product_name;
-          productName.indexOf("식");
-          console.log(productName.indexOf("식"));
+      function onSearch(value) {
+        $(".card-group > div").each(function () {
+          const productName = $(this).find(".product-name");
+          const brandName = $(this).find(".brand-name");
 
-          // 3. input창에 입력한 글자가 상품이름에 있으면
-          if (e.target.value === productData.product_name) {
-            // 4. 해당 상품만 보여주셈
-            console.log(productData);
+          //
+          if (value === "") {
+            $(this).show();
+            $("#msg-empty").hide();
+            return;
           } else {
-            alert("찾으시는 제품이 없습니다.");
+            $(this).hide();
+          }
+
+          // input에 입력된 단어를 찾아서
+          if (productName.text().indexOf(value) !== -1) {
+            const pnHighlight = productName
+              .text()
+              .replace(value, `<span class='highlight'>${value}</span>`);
+            productName.html(pnHighlight);
+            $(this).css("display", "block");
+            resultCount++;
+          }
+
+          if (brandName.text().indexOf(value) !== -1) {
+            var bnHighlight = brandName
+              .text()
+              .replace(value, `<span class='highlight'>${value}</span>`);
+            brandName.html(bnHighlight);
+            $(this).css("display", "block");
+            resultCount++;
           }
         });
-      });
+      }
 
-      // drag & drop (jQuery UI)
-      // 드래그할 상품
-      $("#drag-card").draggable({
-        revert: true,
-      });
       // 드롭할 장바구니
       $("#drop-box").droppable({
         drop: function (event, ui) {
