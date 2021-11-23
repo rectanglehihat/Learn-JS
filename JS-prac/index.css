@@ -52,7 +52,7 @@
 }
 
 .card {
-  margin: 1rem 1rem 1rem 0;
+  margin: 0 1rem 1rem 0;
   z-index: 2;
 }
 
@@ -67,8 +67,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 1rem;
+  border-radius: 5px;
 }
 
 .cart-item {
   display: none;
+}
+
+.card-text {
+  text-align: right;
+}
+
+.btn-primary {
+  width: 100%;
 }/*# sourceMappingURL=index.css.map */

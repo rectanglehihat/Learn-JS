@@ -70,6 +70,7 @@
         class="form-control"
         id="formGroupExampleInput"
         placeholder="검색어를 입력해주세요."
+        onchange="{onsearch}"
       />
     </div>
 
@@ -77,7 +78,7 @@
       <!------------ Product List ------------>
       <div class="products-box">
         <h1 class="product-list">모든 상품 리스트</h1>
-        <div class="card-group"></div>
+        <div class="card-group" id="product-list"></div>
       </div>
 
       <!------------ Cart ------------>
@@ -86,21 +87,104 @@
         <div class="card" style="width: 18rem" id="drop-box">
           <div class="drop-box">이곳에 상품을 놓아주세요.</div>
           <div class="card-body">
-            <div class="cart-item">
+            <div class="cart-item" id="cart-list">
               <div class="select-item">제품이름</div>
               <div class="select-price">가격</div>
               <div>수량조절</div>
             </div>
             <p class="card-text">총 합계 0원</p>
-            <a href="#" class="btn btn-primary">구매하기</a>
           </div>
+          <a href="#" class="btn btn-primary">구매하기</a>
         </div>
       </div>
     </div>
 
+    <div class="footer">footer</div>
+
     <script>
-      // 사이트 첫 접속시 데이터에 맞게 상품 보여주기(데이터바인딩)
+      // 사이트 첫 접속시
       $(function () {
+        // 데이터에 맞게 상품 보여주기
+        getProducts();
+
+        // drop 영역 만들기
+        $("#drop-box").droppable({
+          drop: function (event, ui) {
+            let card = $(ui.draggable);
+            let index = card.attr("data-index");
+            let img = card.find("img");
+            let productName = card.find(".product-name").text();
+            let brandName = card.find(".brand-name").text();
+            let price = card.find(".price").text();
+
+            // 상품 원위치 시키기
+            item.css({
+              position: "relative",
+              top: "auto",
+              left: "auto",
+            });
+
+            let productInBasket = $(`#cart-list [data-index=${index}]`);
+            if (productInBasket.length) {
+              // 중복되는 상품이 있을 경우
+              alert("이미 장바구니에 담긴 상품입니다.");
+              return;
+            }
+
+            //드롭했을 시 그 밑에 상품목록 생성해주기
+            let cartItem = $(`
+            <div class="card-deck">
+                <div class="card mb-3" style="max-width: 540px;" data-index="${index}">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 overflow-hidden">
+                            <img src="${img.attr(
+                              "src"
+                            )}" class="card-img h-100 w-auto" alt="${productName}" title="${productName}">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                            <h5 class="card-title product-name">${productName}</h5>
+                            <p class="card-text brand-name">${brandName}</p>
+                            <p class="card-text"><small class="text-muted price">${price}</small></p>
+                            <p class="card-text">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm-${index}">수량</span>
+                                    </div>
+                                    <input type="number" min="1" value="1" class="form-control number" >
+                                </div>
+                            </p>
+                            <p class="card-text">합계 <span class="sum">${price}</span>원</p>
+                            </div>
+                        </div>
+                        <button type="button" class="col-md-1 btn-delete">X</button>
+                    </div>
+                </div>
+            </div>
+            `);
+
+            cartItem
+              .find("input[type='number']")
+              .on("keyup change", function () {
+                var sum = parseInt(price, 10) * $(this).val();
+                cartItem.find(".sum").text(sum);
+
+                setTotalSum();
+              });
+
+            cartItem.find("button.btn-delete").on("click", function () {
+              cartItem.remove();
+              setTotalSum();
+            });
+
+            $("#basket-list").append(cartItem);
+            setTotalSum();
+          },
+        });
+      });
+
+      // ajax로 가져온 데이터 바인딩
+      function getProducts() {
         $.ajax({
           url: "store.json",
           type: "get",
@@ -110,7 +194,7 @@
             makeItem(i);
           });
         });
-      });
+      }
 
       // 상품 만들고 드래그 가능하게 만들기
       function makeItem(item, index) {
@@ -135,9 +219,11 @@
 
       // 삼품검색
       function onSearch(value) {
-        $(".card-group > div").each(function () {
-          const productName = $(this).find(".product-name");
-          const brandName = $(this).find(".brand-name");
+        let resultCount = 0;
+
+        $("#product-list > div").each(function () {
+          let productName = $(this).find(".product-name");
+          let brandName = $(this).find(".brand-name");
 
           //
           if (value === "") {
@@ -150,7 +236,7 @@
 
           // input에 입력된 단어를 찾아서
           if (productName.text().indexOf(value) !== -1) {
-            const pnHighlight = productName
+            let pnHighlight = productName
               .text()
               .replace(value, `<span class='highlight'>${value}</span>`);
             productName.html(pnHighlight);
@@ -159,7 +245,7 @@
           }
 
           if (brandName.text().indexOf(value) !== -1) {
-            var bnHighlight = brandName
+            let bnHighlight = brandName
               .text()
               .replace(value, `<span class='highlight'>${value}</span>`);
             brandName.html(bnHighlight);
@@ -167,19 +253,13 @@
             resultCount++;
           }
         });
-      }
 
-      // 드롭할 장바구니
-      $("#drop-box").droppable({
-        drop: function (event, ui) {
-          let card = $(ui.draggable);
-          // console.log(card);
-          if ($("#drag-card").mouseup) {
-            $(".cart-item").show();
-            // 드래그한 아이템의 이름으로 바꿔서 보여주셈
-          }
-        },
-      });
+        if (resultCount === 0) {
+          $("#msg-empty").show();
+        } else {
+          $("#msg-empty").hide();
+        }
+      }
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
