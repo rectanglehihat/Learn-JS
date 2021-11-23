@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this에 대해서 알아보자</title>
+  </head>
+  <body>
+    <button id="btn">버튼</button>
+
+    <script>
+      // let obj = {
+      //   이름들: ["김", "이", "박"],
+      //   함수: function () {
+      //     obj.이름들.forEach(function () {
+      //       console.log(this);
+      //     });
+      //   },
+      // };
+
+      // obj.함수();
+
+      // 1
+      let 사람 = {
+        name: "손흥민",
+        sayHi: () => {
+          console.log(`안녕 나는 ${사람.name}`);
+        },
+      };
+      let 사람2 = {
+        name: "손흥민",
+        sayHi: function () {
+          console.log("안녕 나는 " + this.name);
+        },
+      };
+
+      사람.sayHi(); //안녕 나는 손흥민
+      사람2.sayHi(); //안녕 나는 손흥민
+
+      // 2
+      let 자료 = {
+        data: [1, 2, 3, 4, 5],
+      };
+
+      자료.전부더하기 = function () {
+        let sum = 0;
+        this.data.forEach((i) => {
+          sum = sum + i;
+        });
+        console.log(sum);
+      };
+
+      자료.전부더하기();
+
+      // 3
+      document.getElementById("btn").addEventListener("click", function (e) {
+        setTimeout(() => {
+          console.log(this.innerHTML);
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
