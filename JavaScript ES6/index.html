@@ -9,6 +9,14 @@
   <body>
     <button id="btn">버튼</button>
 
+    <!-- 변수예제 -->
+    <div style="display: none">모달창0</div>
+    <div style="display: none">모달창1</div>
+    <div style="display: none">모달창2</div>
+    <button class="btn">버튼0</button>
+    <button class="btn">버튼1</button>
+    <button class="btn">버튼2</button>
+
     <script>
       // let obj = {
       //   이름들: ["김", "이", "박"],
@@ -59,6 +67,85 @@
           console.log(this.innerHTML);
         }, 1000);
       });
+
+      // 변수예제 5
+      // var는 전역변수라서 블록레벨인 let으로 변경해주면 해결
+      // for (let i = 1; i < 6; i++) {
+      //   setTimeout(function () {
+      //     console.log(i);
+      //   }, i * 1000);
+      // }
+
+      // 변수예제 6
+      let 버튼들 = document.getElementsByClassName("btn");
+      let 모달창들 = document.querySelectorAll("div");
+
+      // 버튼들[0].addEventListener("click", function () {
+      //   모달창들[0].style.display = "block";
+      // });
+
+      // 버튼들[1].addEventListener("click", function () {
+      //   모달창들[1].style.display = "block";
+      // });
+
+      // 버튼들[2].addEventListener("click", function () {
+      //   모달창들[2].style.display = "block";
+      // });
+
+      for (let i = 0; i < 버튼들.length; i++) {
+        버튼들[i].addEventListener("click", function () {
+          모달창들[i].style.display = "block";
+        });
+      }
+
+      // template literals
+      let 변수 = "손흥민";
+      let 문자 = `안녕하세요 저는 ${변수} 입니다.`;
+
+      function 해체분석기(문자들, 변수들) {
+        console.log(문자들);
+        console.log(변수들);
+      }
+      해체분석기`안녕하세요 저는 ${변수} 입니다.`;
+
+      // tagged litrals 1
+      // let pants = 20;
+      // let socks = 100;
+      // `바지${pants} 양말 ${socks}`;
+
+      // function 해체분석기(문자들, 변수들1, 변수들2) {
+      //   console.log(문자들[1] + 변수들1 + 문자들[0] + 변수들2);
+      // }
+
+      // 해체분석기`바지${pants} 양말 ${socks}`;
+
+      // tagged litrals 2
+      let pants = 0;
+      let socks = 100;
+      `바지${pants} 양말 ${socks}`;
+
+      function 해체분석기(문자들, 변수들1, 변수들2) {
+        if (변수들1 === 0) {
+          변수들1 = "안팔아요";
+        }
+        console.log(문자들[0] + 변수들1 + 문자들[1] + 변수들2);
+      }
+
+      해체분석기`바지${pants} 양말 ${socks}`;
+
+      // spread operator 연장선 apply(옛방식)
+      let person = {
+        인사: function () {
+          console.log("안녕");
+        },
+      };
+
+      let person2 = {
+        name: "손흥민",
+      };
+
+      person.인사();
+      person.인사.apply(person2);
     </script>
   </body>
 </html>
