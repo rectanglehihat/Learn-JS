@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Level 2 OOP</title>
+  </head>
+  <body>
+    <script>
+      // Constructor 와 instance
+      // let product1 = { name: "shirts", price: 50000 };
+      // let product2 = { name: "pants", price: 60000 };
+
+      function Products(name, price) {
+        this.name = name;
+        this.price = price;
+        this.부가세 = function () {
+          console.log(this.price * 0.1);
+        };
+      }
+
+      let product1 = new Products("shirts", 50000);
+      let product2 = new Products("pants", 60000);
+      console.log(product1, product2);
+
+      product1.부가세();
+
+      // prototype 은 유전자!
+      Products.prototype.size = "XL";
+
+      console.log(product1.size);
+      // 함수에만 생성됨(어레이나 오브젝트는 X)
+
+      // 부모의 prototype을 찾고 싶을때 __proto__
+      console.log(product1.__proto__);
+
+      // __proto__를 이용해 부모님 강제 등록
+      let 부모 = { name: "Kim" };
+      let 자식 = {};
+      자식.__proto__ = 부모;
+      console.log(자식.name); //Kim
+
+      // 연습문제 1
+      // let 학생1 = { name: "Kim", age: 20 };
+      // let 학생2 = { name: "Park", age: 21 };
+      // let 학생3 = { name: "Lee", age: 22 };
+
+      function Students(name, age) {
+        this.name = name;
+        this.age = age;
+        this.sayHi = function () {
+          console.log(`안녕 나는 ${this.name}이야`);
+        };
+      }
+      const student1 = new Students("Kim", 20);
+      const student2 = new Students("Park", 21);
+      const student3 = new Students("Lee", 22);
+      student1.sayHi();
+
+      // 연습문제 2
+      function Parent() {
+        this.name = "Kim";
+      }
+      var a = new Parent();
+
+      a.__proto__.name = "Park";
+      console.log(a.name);
+
+      // 연습문제 3
+      function Student(이름, 나이) {
+        this.name = 이름;
+        this.age = 나이;
+      }
+
+      Student.prototype.sayHi = () => {
+        console.log("안녕 나는 " + this.name + "이야");
+        console.log("안녕 나는 " + 학생1.name + "이야");
+      };
+      var 학생1 = new Student("Kim", 20);
+
+      학생1.sayHi();
+      // 이름이 안나오는 이유는 화살표 함수 내부의 this는
+      // 밖의 아무 값이나 가져와 사용하므로 여기선 window라서 Kim이 출력되지 않음.
+
+      // 연습문제 4
+      var arr = [1, 2, 3];
+      // Array의 prototype에 remove3 라는 함수 추가해주면 됨
+      Array.prototype.remove3 = function () {
+        // this에서 3을 찾아 제거해주셈
+        for (let i = 0; i < this.length; i++) {
+          if (this[i] === 3) {
+            this.splice(i, 1);
+          }
+        }
+      };
+      arr.remove3();
+
+      console.log(arr);
+    </script>
+  </body>
+</html>
